@@ -100,25 +100,34 @@ class BinTreeNode
     BinTreeNode<T> *_right;
     ValueType _data;
 
-
     bool innerPreOrderTraverse(BinTreeNode<T> *node,
                                ::std::stack<NodeType *> &tstack,
                                ::std::function<bool(NodeType *)> tf)
     {
-        if(!tf(node)) return true;
+        if (node == nullptr) return false;
+        if (!tf(node)) return true;
 
+        ::std::cout << "Push Node:" << node->GetVal() << ::std::endl;
         tstack.push(node);
 
-        if(innerPreOrderTraverse(node->_left, tstack, tf)) return true;
-        if(innerPreOrderTraverse(node->_right, tstack, tf)) return true;
+        if (innerPreOrderTraverse(node->_left, tstack, tf))
+        {
+            return true;
+        }
 
+        if (innerPreOrderTraverse(node->_right, tstack, tf))
+        {
+            return true;
+        }
+
+        ::std::cout << "Pop Node:" << tstack.top()->GetVal() << ::std::endl;
         tstack.pop();
         return false;
     }
 
     bool innerPreOrderTraverse2(BinTreeNode<T> *node,
-                               ::std::stack<NodeType *> &tstack,
-                               ::std::function<bool(NodeType *)> tf)
+                                ::std::stack<NodeType *> &tstack,
+                                ::std::function<bool(NodeType *)> tf)
     {
         while (node || !tstack.empty())
         {

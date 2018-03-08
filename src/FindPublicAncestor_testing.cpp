@@ -42,25 +42,24 @@ TEST(basic,BTGetPath) {
     std::stack<NT *> n3Path;
     n5.GetPath(3,n3Path);
 
-    while(n3Path.size() != 0) {
-        cout<<n3Path.top()->GetVal()<<endl;
-        n3Path.pop();
-    }
+    ASSERT_EQ(n3Path.top()->GetVal(), 1);
+    n3Path.pop();
+
+    ASSERT_EQ(n3Path.top()->GetVal(), 5);
+    n3Path.pop();
+
 
     std::stack<NT *> n9Path;
     n5.GetPath(9,n9Path);
 
-    while(n9Path.size() != 0) {
-        cout<<n9Path.top()->GetVal()<<endl;
-        n9Path.pop();
-    }
+    ASSERT_EQ(n9Path.top()->GetVal(), 7);
+    n9Path.pop();
 
+    ASSERT_EQ(n9Path.top()->GetVal(), 1);
+    n9Path.pop();
 
-    // ASSERT_EQ(n3Path.top()->GetVal(), 1);
-    // n3Path.pop();
-
-    // ASSERT_EQ(n3Path.top()->GetVal(), 5);
-    // n3Path.pop();
+    ASSERT_EQ(n9Path.top()->GetVal(), 5);
+    n9Path.pop();
 
 }
 
