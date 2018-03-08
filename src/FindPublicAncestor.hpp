@@ -4,17 +4,16 @@
 
 #include <stack>
 
-template<typename T>
+template <typename T>
 class BinTreeNode
 {
     using ValueType = T;
-public:
+
+   public:
     using NodeType = BinTreeNode<ValueType>;
 
     //! Default constructor
-    BinTreeNode(ValueType val) : _left(nullptr), _right(nullptr), _data(val) {
-    }
-
+    BinTreeNode(ValueType val) : _left(nullptr), _right(nullptr), _data(val) {}
     //! Copy constructor
     BinTreeNode(const BinTreeNode<T> &other) = delete;
 
@@ -22,46 +21,65 @@ public:
     BinTreeNode(BinTreeNode<T> &&other) = delete;
 
     //! Destructor
-    virtual ~BinTreeNode() noexcept {
-    }
-
+    virtual ~BinTreeNode() noexcept {}
     //! Copy assignment operator
-    BinTreeNode<T>& operator=(const BinTreeNode<T> &other) = delete;
+    BinTreeNode<T> &operator=(const BinTreeNode<T> &other) = delete;
 
     //! Move assignment operator
-    BinTreeNode<T>& operator=(BinTreeNode<T> &&other) = delete;
+    BinTreeNode<T> &operator=(BinTreeNode<T> &&other) = delete;
 
-    BinTreeNode<T> *CreateLeft(ValueType val) {
+    BinTreeNode<T> *CreateLeft(ValueType val)
+    {
         _left = new NodeType(val);
         return _left;
     }
 
-
-    BinTreeNode<T> *CreateRight(ValueType val) {
+    BinTreeNode<T> *CreateRight(ValueType val)
+    {
         _right = new NodeType(val);
         return _right;
     }
 
-    BinTreeNode<T> *GetPublicAncestor(BinTreeNode<T> *nodeA, BinTreeNode<T> *nodeB) {
-        //TODO: implement it
+    void GetPath(BinTreeNode<T> *node, ValueType v,
+                 std::stack<NodeType *> &tstack)
+    {
+        while (node || !tstack.empty())
+        {
+            if (node->_value == v)
+            {
+                return;
+            }
+            if (node)
+            {
+                tstack.push(node);
+                node = node->_left;
+            }
+            else
+            {
+                node = tstack.top();
+                tstack.pop();
+                node = node->_right;
+            }
+        }
+    }
+
+    BinTreeNode<T> *GetPublicAncestor(BinTreeNode<T> *nodeA,
+                                      BinTreeNode<T> *nodeB)
+    {
+        if (nodeA == nullptr || nodeB == nullptr) return nullptr;
+
+        // TODO: implement it
         return nullptr;
     }
 
-protected:
-private:
+   protected:
+   private:
     BinTreeNode<T> *_left;
     BinTreeNode<T> *_right;
     ValueType _data;
-
-    std::stack<BinTreeNode<T> *> &&getPath(BinTreeNode<T> *node) {
-        //TODO: implement it
-        return nullptr;
-    }
 };
 
-
-template<typename T>
+template <typename T>
 using BinTree = BinTreeNode<T>;
-
 
 #endif /* FINDPUBLICANCESTOR_H */
