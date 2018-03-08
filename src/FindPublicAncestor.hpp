@@ -42,15 +42,16 @@ class BinTreeNode
         return _right;
     }
 
-    bool GetPath(const ValueType & v, ::std::stack<NodeType *> &path)
+    bool GetPath(ValueType v, ::std::stack<NodeType *> &path)
     {
-        bool reval =  innerPreOrderTraverse(this, path, [v](NodeType *node) {
+        bool reval = innerPreOrderTraverse(this, path, [v](NodeType *node) {
             if (node == nullptr) return false;
             return node->_data != v;
         });
+        return reval;
     }
 
-    BinTreeNode<T> *GetPublicAncestor(const ValueType &va, const ValueType &vb)
+    BinTreeNode<T> *GetPublicAncestor(ValueType va, const ValueType &vb)
     {
         ::std::stack<NodeType *> nodeAPath;
         GetPath(va, nodeAPath);
@@ -102,7 +103,7 @@ class BinTreeNode
 
     bool innerPreOrderTraverse(BinTreeNode<T> *node,
                                ::std::stack<NodeType *> &tstack,
-                               const ::std::function<bool(NodeType *)> &tf)
+                               ::std::function<bool(NodeType *)> tf)
     {
         if(!tf(node)) return true;
 
@@ -115,9 +116,9 @@ class BinTreeNode
         return false;
     }
 
-    void innerPreOrderTraverse2(BinTreeNode<T> *node,
+    bool innerPreOrderTraverse2(BinTreeNode<T> *node,
                                ::std::stack<NodeType *> &tstack,
-                               ::std::function<bool(NodeType *)> &tf)
+                               ::std::function<bool(NodeType *)> tf)
     {
         while (node || !tstack.empty())
         {
@@ -134,7 +135,7 @@ class BinTreeNode
 
                 if (!tf(node))
                 {
-                    return;
+                    return true;
                 }
 
                 ::std::cout << "PopNode :" << node->GetVal() << ::std::endl;

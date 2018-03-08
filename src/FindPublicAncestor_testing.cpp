@@ -56,8 +56,6 @@ TEST(basic,BTGetPath) {
     }
 
 
-
-
     // ASSERT_EQ(n3Path.top()->GetVal(), 1);
     // n3Path.pop();
 
