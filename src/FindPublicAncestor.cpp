@@ -1,8 +1,4 @@
 
-#ifndef FINDPUBLICANCESTOR_H
-#define FINDPUBLICANCESTOR_H
+#include "FindPublicAncestor.hpp"
 
 
-
-
-#endif /* FINDPUBLICANCESTOR_H */
