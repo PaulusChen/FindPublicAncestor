@@ -18,9 +18,9 @@ function mk_third_party
 function print_usage
 {
     echo "Usage:"
-    echo "-g compile testing program"
+    echo "-t compile testing program"
     echo "-d compile debug version"
-    echo "-d compile release version"
+    echo "-r compile release version"
 }
 
 if test ! -e SysLibInclude; then
